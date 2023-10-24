@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 // Reducers
 import messagesReducer from './reducers/messages_reducer.js';
@@ -13,6 +13,11 @@ import selectedChannelReducer from './reducers/selected_channel_reducer.js';
 // internal modules
 import App from './components/app';
 import './styles/index.css';
+
+// Logger with default options
+import logger from 'redux-logger'
+import reduxPromise from 'redux-promise';
+const middlewares = applyMiddleware(logger, reduxPromise)
 
 // State and reducers
 const reducers = combineReducers({
@@ -31,7 +36,7 @@ const initialState = {
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={createStore(reducers, initialState)}>
+  <Provider store={createStore(reducers, initialState, middlewares)}>
     <App />
   </Provider>,
   document.getElementById('root')
