@@ -4,8 +4,11 @@ import MessageList from '../containers/message_list'
 function App() {
   return (
     <div className="messaging-wrapper">
-      <div className="logo-container"></div>
+      <div className="logo-container">
+      {/* <img className="messaging-logo" src="assets/images/logo.svg" alt="logo" /> */}
+      </div>
       <div className="channels-container"></div>
+      {/* <ChannelList /> */}
       <MessageList />
     </div>
   );

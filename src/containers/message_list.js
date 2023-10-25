@@ -1,18 +1,25 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { setMessages } from '../actions'
+
+import { fetchMessages } from '../actions';
 import Message from '../components/message'
 
 class MessageList extends Component {
   componentWillMount() {
-    this.props.setMessages()
+    this.fetchMessages();
+  }
+
+  fetchMessages = () => {
+    this.props.fetchMessages(this.props.selectedChannel);
   }
 
   render() {
     return (
       <div className="channel-container">
-        <div className="channel-title">Channel #{this.props.selectedChannel}</div>
+        <div className="channel-title">
+          <span>Channel #{this.props.selectedChannel}</span>
+        </div>
         <div className="channel-content">
           { this.props.messages.map((message, index) => (
             <Message key={index} message={message} />
@@ -23,18 +30,15 @@ class MessageList extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    { setMessages: setMessages },
-    dispatch
-  )
-}
-
 function mapStateToProps(state) {
   return {
     messages: state.messages,
     selectedChannel: state.selectedChannel
   }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchMessages }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageList)

@@ -1,11 +1,14 @@
-import messages from '../data/messages.js'
+const BASE_URL = 'https://wagon-chat.herokuapp.com';
 
 // ACTION TYPES
-export const SET_MESSAGES = 'SET_MESSAGES'
+export const FETCH_MESSAGES = 'FETCH_MESSAGES';
 
-export function setMessages() {
+export function fetchMessages(channel) {
+  const url = `${BASE_URL}/${channel}/messages`;
+  const promise = fetch(url).then(r => r.json());
+
   return {
-    type: SET_MESSAGES,
-    payload: messages
-  }
+    type: FETCH_MESSAGES,
+    payload: promise // Will be resolved by redux-promise
+  };
 }

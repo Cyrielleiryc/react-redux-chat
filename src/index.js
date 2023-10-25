@@ -6,8 +6,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 // Reducers
 import messagesReducer from './reducers/messages_reducer.js';
-import channelsReducer from './reducers/channels_reducer.js';
-import currentUserReducer from './reducers/current_user_reducer.js';
 import selectedChannelReducer from './reducers/selected_channel_reducer.js';
 
 // internal modules
@@ -16,15 +14,9 @@ import App from './components/app';
 // Logger with default options
 import logger from 'redux-logger'
 import reduxPromise from 'redux-promise';
-const middlewares = applyMiddleware(logger, reduxPromise)
 
 // State and reducers
-const reducers = combineReducers({
-  messages: messagesReducer,
-  channels: channelsReducer,
-  currentUser: currentUserReducer,
-  selectedChannel: selectedChannelReducer,
-});
+const identityReducer = (state = null) => state;
 
 const initialState = {
   messages: [],
@@ -33,10 +25,21 @@ const initialState = {
   selectedChannel: 'general'
 };
 
+const reducers = combineReducers({
+  messages: messagesReducer,
+  channels: identityReducer,
+  currentUser: identityReducer,
+  selectedChannel: selectedChannelReducer,
+});
+
+// Middlewares and store
+const middlewares = applyMiddleware(logger, reduxPromise)
+const store = createStore(reducers, initialState, middlewares);
+
 // render an instance of the component in the DOM
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={createStore(reducers, initialState, middlewares)}>
+  <Provider store={store}>
     <App />
   </Provider>
 );
