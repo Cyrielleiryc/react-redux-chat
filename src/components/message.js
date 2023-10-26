@@ -1,3 +1,5 @@
+import { emojify } from "react-emojione";
+
 const stringToColour = (str) => {
   let hash = 0;
   str.split('').forEach(char => {
@@ -20,7 +22,7 @@ function Message({message}) {
         <span style={{color: stringToColour(message.author)}}>{message.author}</span>
         <small>{time}</small>
       </i>
-      <p>{message.content}</p>
+      <p>{emojify(message.content)}</p>
     </div>
   )
 }
