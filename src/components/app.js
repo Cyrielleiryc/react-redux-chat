@@ -1,5 +1,6 @@
-import '../styles/app.css';
+import '../assets/styles/app.css';
 import MessageList from '../containers/message_list'
+import ChannelList from '../containers/channel_list'
 
 function App() {
   return (
@@ -7,8 +8,7 @@ function App() {
       <div className="logo-container">
       {/* <img className="messaging-logo" src="assets/images/logo.svg" alt="logo" /> */}
       </div>
-      <div className="channels-container"></div>
-      {/* <ChannelList /> */}
+      <ChannelList />
       <MessageList />
     </div>
   );
