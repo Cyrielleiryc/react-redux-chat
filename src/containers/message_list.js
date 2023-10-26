@@ -23,7 +23,7 @@ class MessageList extends Component {
     clearInterval(this.refresher);
   }
 
-
+cycy
   fetchMessages = () => {
     this.props.fetchMessages(this.props.selectedChannel);
   }
